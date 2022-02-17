@@ -13,12 +13,16 @@ public class Pelicula {
 
     private String nombre;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private int anio;
+
+    private double ratin;
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -27,5 +31,21 @@ public class Pelicula {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    public double getRatin() {
+        return ratin;
+    }
+
+    public void setRatin(double ratin) {
+        this.ratin = ratin;
     }
 }

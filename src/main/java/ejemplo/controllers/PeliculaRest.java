@@ -1,6 +1,7 @@
 package ejemplo.controllers;
 
 import ejemplo.servicios.api.PeliculaService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -85,7 +86,7 @@ public class PeliculaRest {
     }
 
     @PostMapping("/")
-    public ResponseEntity<HashMap<String, Object>> create(@Valid @RequestBody Pelicula persona, BindingResult result) {
+    public ResponseEntity<HashMap<String, Object>> create(@Valid @RequestBody Pelicula pelicula, BindingResult result) {
         RESPONSE.clear();
         if (result.hasErrors()) {
 
@@ -99,9 +100,9 @@ public class PeliculaRest {
         }
 
         try {
-            Pelicula personaNueva = service.save(persona);
-            RESPONSE.put("mensaje", "El cliente ha sido creado con éxito!");
-            RESPONSE.put("cliente", personaNueva);
+            Pelicula peliculaNueva = service.save(pelicula);
+            RESPONSE.put("mensaje", NOMBRE_ENTIDAD+" ha sido creado con éxito!");
+            RESPONSE.put(NOMBRE_ENTIDAD, peliculaNueva);
             return new ResponseEntity(RESPONSE, HttpStatus.CREATED);
 
         } catch (DataAccessException e) {
@@ -127,7 +128,7 @@ public class PeliculaRest {
         try {
             Pelicula buscado = service.findByID(id);
             if (buscado != null) {
-                buscado.setNombre(persona.getNombre());
+                BeanUtils.copyProperties(persona,buscado,"id");
 
                 Pelicula actualizado = service.save(buscado);
                 RESPONSE.put("mensaje", "La persona ha sido actualizado con éxito!");
