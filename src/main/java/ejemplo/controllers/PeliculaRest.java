@@ -75,7 +75,7 @@ public class PeliculaRest {
                 RESPONSE.put(NOMBRE_ENTIDAD, persona);
                 return new ResponseEntity(RESPONSE, HttpStatus.OK);
             } else {
-                RESPONSE.put("mensaje", "Persona no encontrada");
+                RESPONSE.put("mensaje", NOMBRE_ENTIDAD+" no encontrada");
                 return new ResponseEntity(RESPONSE, HttpStatus.OK);
             }
         } catch (DataAccessException e) {
@@ -131,7 +131,7 @@ public class PeliculaRest {
                 BeanUtils.copyProperties(persona,buscado,"id");
 
                 Pelicula actualizado = service.save(buscado);
-                RESPONSE.put("mensaje", "La persona ha sido actualizado con éxito!");
+                RESPONSE.put("mensaje", NOMBRE_ENTIDAD+" ha sido actualizado con éxito!");
                 RESPONSE.put("cliente", actualizado);
                 return new ResponseEntity(RESPONSE, HttpStatus.ACCEPTED);
             } else {
