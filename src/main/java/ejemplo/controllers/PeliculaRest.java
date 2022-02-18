@@ -21,7 +21,7 @@ import ejemplo.modelos.Pelicula;
 
 import javax.validation.Valid;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/peliculas/")
 public class PeliculaRest {
@@ -86,18 +86,8 @@ public class PeliculaRest {
     }
 
     @PostMapping("/")
-    public ResponseEntity<HashMap<String, Object>> create(@Valid @RequestBody Pelicula pelicula, BindingResult result) {
+    public ResponseEntity<HashMap<String, Object>> create(@Valid @RequestBody Pelicula pelicula) {
         RESPONSE.clear();
-        if (result.hasErrors()) {
-
-            List<String> errors = result.getFieldErrors()
-                    .stream()
-                    .map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-                    .collect(Collectors.toList());
-
-            RESPONSE.put("errors", errors);
-            return new ResponseEntity(RESPONSE, HttpStatus.BAD_REQUEST);
-        }
 
         try {
             Pelicula peliculaNueva = service.save(pelicula);
@@ -115,16 +105,6 @@ public class PeliculaRest {
     @PutMapping("edit/{id}")
     public ResponseEntity<HashMap<String, Object>> edit(@Valid @RequestBody Pelicula persona, @PathVariable Integer id, BindingResult result) {
         RESPONSE.clear();
-        if (result.hasErrors()) {
-
-            List<String> errors = result.getFieldErrors()
-                    .stream()
-                    .map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-                    .collect(Collectors.toList());
-
-            RESPONSE.put("errors", errors);
-            return new ResponseEntity(RESPONSE, HttpStatus.BAD_REQUEST);
-        }
         try {
             Pelicula buscado = service.findByID(id);
             if (buscado != null) {

@@ -1,9 +1,7 @@
 package ejemplo.modelos;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity(name="peliculas")
 public class Pelicula {
@@ -13,9 +11,12 @@ public class Pelicula {
 
     private String nombre;
 
-    private int anio;
+    private Date anio;
 
-    private double ratin;
+    private double rating;
+
+    private String resumen;
+
 
     public Integer getId() {
         return id;
@@ -33,19 +34,27 @@ public class Pelicula {
         this.nombre = nombre;
     }
 
-    public int getAnio() {
+    public Date getAnio() {
         return anio;
     }
 
-    public void setAnio(int anio) {
+    public void setAnio(Date anio) {
         this.anio = anio;
     }
 
-    public double getRatin() {
-        return ratin;
+    public double getRating() {
+        return rating;
     }
 
-    public void setRatin(double ratin) {
-        this.ratin = ratin;
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public String getResumen() {
+        return resumen;
+    }
+
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
     }
 }
